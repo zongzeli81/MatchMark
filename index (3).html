@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MatchMark — Post what you have. Find what you need.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple:     #6B5FE4;
+    --purple-lt:  #EAE8FC;
+    --purple-mid: #9B92EE;
+    --teal:       #1DA882;
+    --teal-lt:    #E0F5EE;
+    --ink:        #0F0E17;
+    --muted:      #6B6B80;
+    --border:     #E4E4EF;
+    --bg:         #F9F9FB;
+    --white:      #FFFFFF;
+    --radius:     14px;
+    --radius-sm:  8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Fraunces', serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(249,249,251,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 22px;
+    color: var(--ink); text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .logo em { color: var(--purple); font-style: normal; }
+  .nav-cta {
+    font-size: 13px; font-weight: 500;
+    background: var(--purple); color: #fff;
+    padding: 8px 18px; border-radius: 100px;
+    text-decoration: none; transition: opacity 0.15s;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 860px; margin: 0 auto;
+    padding: 90px 48px 60px;
+    text-align: center;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--purple-lt); color: var(--purple);
+    font-size: 12px; font-weight: 500; letter-spacing: 0.3px;
+    padding: 5px 14px; border-radius: 100px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+  h1 .accent { color: var(--purple); }
+  .hero-sub {
+    margin-top: 22px;
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 560px; margin-left: auto; margin-right: auto;
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+  .hero-pills {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 8px; margin-top: 32px;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+  .pill {
+    font-size: 12px; padding: 5px 14px; border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--white); color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .pill-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .pill-dot.have { background: var(--teal); }
+  .pill-dot.need { background: var(--purple); }
+  .cat i { font-size: 15px; color: var(--purple); vertical-align: -2px; }
+  .hero-arrow i { font-size: 22px; }
+    margin-top: 48px;
+    font-size: 22px; color: var(--border);
+    animation: bounce 2s infinite;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .section { padding: 70px 48px; max-width: 1100px; margin: 0 auto; box-sizing: border-box; width: 100%; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--purple);
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700; letter-spacing: -0.8px;
+    color: var(--ink); margin-bottom: 48px;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .step {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .step:hover { border-color: var(--purple-mid); transform: translateY(-3px); }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; color: var(--purple);
+    background: var(--purple-lt);
+    display: inline-block; padding: 3px 10px;
+    border-radius: 100px; margin-bottom: 16px;
+  }
+  .step-icon { font-size: 32px; margin-bottom: 14px; display: block; color: var(--purple); }
+  .step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 700;
+    margin-bottom: 8px; color: var(--ink);
+  }
+  .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ── CATEGORIES ── */
+  .cats {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 36px;
+  }
+  .cat {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: var(--white); border-radius: 100px;
+    color: var(--ink); font-weight: 400;
+  }
+
+  /* ── FORM ── */
+  .form-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    max-width: 620px; margin: 0 auto;
+    box-shadow: 0 4px 40px rgba(107,95,228,0.06);
+  }
+  .form-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .form-sub { font-size: 14px; color: var(--muted); margin-bottom: 32px; }
+
+  .field { margin-bottom: 18px; }
+  label {
+    display: block; font-size: 13px; font-weight: 500;
+    color: var(--ink); margin-bottom: 7px;
+  }
+  input[type=text], input[type=email], select, textarea {
+    width: 100%; padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    font-family: 'Fraunces', serif;
+    font-size: 15px; color: var(--ink);
+    outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none; -webkit-appearance: none;
+  }
+  input[type=text]:focus, input[type=email]:focus, select:focus, textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(107,95,228,0.12);
+    background: var(--white);
+  }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .toggle-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    margin-bottom: 18px;
+  }
+  .toggle-btn {
+    padding: 12px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg); cursor: pointer;
+    text-align: center; font-family: 'Fraunces', serif;
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    transition: all 0.15s;
+  }
+  .toggle-btn.selected-have {
+    background: var(--teal-lt); border-color: var(--teal);
+    color: #0F6E56;
+  }
+  .toggle-btn.selected-need {
+    background: var(--purple-lt); border-color: var(--purple);
+    color: var(--purple);
+  }
+
+  .submit-btn {
+    width: 100%; padding: 14px;
+    background: var(--purple); color: #fff;
+    border: none; border-radius: var(--radius-sm);
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 0.2px;
+    cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { opacity: 0.9; }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .privacy {
+    font-size: 11px; color: var(--muted);
+    text-align: center; margin-top: 14px; line-height: 1.6;
+  }
+
+  .success-msg {
+    display: none; text-align: center; padding: 32px 20px;
+  }
+  .success-icon { font-size: 52px; margin-bottom: 14px; display: block; color: var(--teal); }
+  .success-msg h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 800; margin-bottom: 8px;
+  }
+  .success-msg p { color: var(--muted); font-size: 14px; }
+
+  /* ── STATS ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px; margin-top: 60px;
+  }
+  .stat {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px; font-weight: 800;
+    color: var(--purple); letter-spacing: -1px;
+    display: block;
+  }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 16px; color: var(--ink);
+  }
+  .footer-logo em { color: var(--purple); font-style: normal; }
+  .footer-note { font-size: 12px; color: var(--muted); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(7px); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 32px; }
+    .section { padding: 60px 32px; }
+    .hero { padding: 70px 32px 48px; }
+    footer { padding: 24px 32px; }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 24px; }
+    .section { padding: 48px 24px; }
+    .hero { padding: 56px 24px 36px; }
+    .form-wrap { padding: 28px 24px; }
+    footer { padding: 20px 24px; }
+    .hero-pills { padding: 0; }
+    .steps { grid-template-columns: 1fr; }
+    .toggle-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 400px) {
+    nav { padding: 0 16px; }
+    .section { padding: 40px 16px; }
+    .hero { padding: 48px 16px 32px; }
+    .form-wrap { padding: 24px 16px; }
+    footer { padding: 16px; }
+  }
+
+  * { box-sizing: border-box; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Match<em>Mark</em></a>
+  <a href="#join" class="nav-cta">Join waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Free to use · Now accepting early members · UW Seattle
+  </div>
+  <h1>Post what you <span class="accent">have.</span><br/>Find what you <span class="accent">need.</span></h1>
+  <p class="hero-sub">MatchMark connects students and locals through AI-powered matching. Whatever you're offering or looking for — someone nearby has exactly that. Using MatchMark is always free — you set your own prices for what you list.</p>
+  <div class="hero-pills">
+    <div class="pill"><span class="pill-dot have"></span>I have a truck available weekends</div>
+    <div class="pill"><span class="pill-dot need"></span>I need a tutoring session this week</div>
+    <div class="pill"><span class="pill-dot have"></span>I have a room to sublet in June</div>
+    <div class="pill"><span class="pill-dot need"></span>I need someone to help me move</div>
+    <div class="pill"><span class="pill-dot have"></span>I have a DSLR to rent</div>
+    <div class="pill"><span class="pill-dot need"></span>I need a Spanish practice partner</div>
+  </div>
+  <div class="hero-arrow">↓</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-label">How it works</div>
+  <div class="section-title">Three steps to your match</div>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">Step 01</span>
+      <span class="step-icon">📋</span>
+      <h3>Post your have or need</h3>
+      <p>Tell us what you're offering or looking for. A skill, a space, a service, a good — anything goes.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">Step 02</span>
+      <span class="step-icon">🤖</span>
+      <h3>AI finds your match</h3>
+      <p>Our matching engine scans every listing and surfaces the most relevant people nearby based on shared tags and context. You'll be notified the moment a match is found — and your listing stays in our database permanently, so a match can find you anytime.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">Step 03</span>
+      <span class="step-icon">🤝</span>
+      <h3>Connect and exchange</h3>
+      <p>We introduce you directly. From there, you handle the details on your own terms — no middleman, no platform fees.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-label">Categories</div>
+  <div class="section-title">Everything in one place</div>
+  <div class="cats">
+    <div class="cat">🛠️ Skills &amp; Tutoring</div>
+    <div class="cat">🏠 Space &amp; Housing</div>
+    <div class="cat">📦 Goods &amp; Reselling</div>
+    <div class="cat">🚗 Transport &amp; Moving</div>
+    <div class="cat">🎨 Creative &amp; Media</div>
+    <div class="cat">🍎 Food &amp; Meal Prep</div>
+    <div class="cat">💼 Business &amp; Consulting</div>
+    <div class="cat">🎓 Campus &amp; Student Life</div>
+    <div class="cat">💆 Health &amp; Wellness</div>
+    <div class="cat">+ anything else</div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="section" id="join">
+  <div class="form-wrap">
+    <div id="formBody">
+      <div class="form-title">Join the waitlist — the platform is free</div>
+      <p class="form-sub">Be first on MatchMark. Drop your first listing below and we'll match you manually while we build. MatchMark is free to use — you keep full control over your own pricing.</p>
+
+      <form id="matchForm" action="https://formspree.io/f/xwvydykd" method="POST">
+
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" placeholder="First name is fine" required/>
+        </div>
+
+        <div class="field">
+          <label for="email">Email address <span style="color:var(--muted);font-weight:400">(personal or school, both work)</span></label>
+          <input type="email" id="email" name="email" placeholder="you@gmail.com or you@uw.edu" required/>
+        </div>
+
+        <div class="field">
+          <label>Are you posting a have or a need?</label>
+          <div class="toggle-row">
+            <button type="button" class="toggle-btn" id="btnHave" onclick="selectType('have')">I have something to offer</button>
+            <button type="button" class="toggle-btn" id="btnNeed" onclick="selectType('need')">I need something</button>
+          </div>
+          <input type="hidden" id="typeHidden" name="type" value=""/>
+        </div>
+
+        <div class="field">
+          <label for="listing">What is it? <span style="color:var(--muted);font-weight:400">(one line is fine)</span></label>
+          <input type="text" id="listing" name="listing" placeholder="e.g. I have a truck available on weekends" required/>
+        </div>
+
+        <div class="field">
+          <label for="category">Category</label>
+          <select id="category" name="category" required>
+            <option value="" disabled selected>Select a category</option>
+            <option>Skills &amp; Tutoring</option>
+            <option>Space &amp; Housing</option>
+            <option>Goods &amp; Reselling</option>
+            <option>Transport &amp; Moving</option>
+            <option>Creative &amp; Media</option>
+            <option>Food &amp; Meal Prep</option>
+            <option>Business &amp; Consulting</option>
+            <option>Campus &amp; Student Life</option>
+            <option>Health &amp; Wellness</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="details">Any extra details? <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+          <textarea id="details" name="details" placeholder="Price, location, availability, anything helpful..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Join MatchMark →</button>
+
+        <p class="privacy">
+          By joining you agree to receive early access updates from MatchMark.<br/>
+          We will never sell your email. Unsubscribe anytime.
+        </p>
+      </form>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <span class="success-icon">🎉</span>
+      <h3>You're on the list.</h3>
+      <p>We'll reach out when we find your match — usually within a few days.<br/>Spread the word and your match finds you faster.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Match<em>Mark</em></div>
+  <div class="footer-note">Built at UW Seattle · 2026</div>
+</footer>
+
+<script>
+  function selectType(type) {
+    document.getElementById('typeHidden').value = type;
+    const btnHave = document.getElementById('btnHave');
+    const btnNeed = document.getElementById('btnNeed');
+    btnHave.className = 'toggle-btn' + (type === 'have' ? ' selected-have' : '');
+    btnNeed.className = 'toggle-btn' + (type === 'need' ? ' selected-need' : '');
+  }
+
+  const form = document.getElementById('matchForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    const data = new FormData(form);
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('formBody').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Join MatchMark →';
+        alert('Something went wrong. Try again or email us directly.');
+      }
+    } catch(err) {
+      btn.disabled = false;
+      btn.textContent = 'Join MatchMark →';
+      alert('Network error. Check your connection and try again.');
+    }
+  });
+</script>
+
+</body>
+</html>
